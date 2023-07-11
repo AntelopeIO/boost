@@ -308,40 +308,51 @@ local windows_pipeline(name, image, environment, arch = "amd64") =
     linux_pipeline(
         "Linux 22.04 Clang 13",
         "cppalliance/droneubuntu2204:1",
-        { TOOLSET: 'clang', COMPILER: 'clang++-13', CXXSTD: '03,11,14,17,20' },
+        { TOOLSET: 'clang', COMPILER: 'clang++-13', CXXSTD: '03,11,14,17,20,2b' },
         "clang-13",
     ),
 
     linux_pipeline(
-        "Linux 22.04 Clang 14 UBSAN",
+        "Linux 22.04 Clang 14",
         "cppalliance/droneubuntu2204:1",
-        { TOOLSET: 'clang', COMPILER: 'clang++-14', CXXSTD: '03,11,14,17,20,2b' } + ubsan,
+        { TOOLSET: 'clang', COMPILER: 'clang++-14', CXXSTD: '03,11,14,17,20,2b' },
         "clang-14",
     ),
 
     linux_pipeline(
-        "Linux 22.04 Clang 14 ASAN",
+        "Linux 22.04 Clang 15 UBSAN",
         "cppalliance/droneubuntu2204:1",
-        { TOOLSET: 'clang', COMPILER: 'clang++-14', CXXSTD: '03,11,14,17,20,2b' } + asan,
-        "clang-14",
-    ),
-
-    linux_pipeline(
-        "Linux 22.04 Clang 15",
-        "cppalliance/droneubuntu2204:1",
-        { TOOLSET: 'clang', COMPILER: 'clang++-15', CXXSTD: '03,11,14,17,20,2b' },
+        { TOOLSET: 'clang', COMPILER: 'clang++-15', CXXSTD: '03,11,14,17,20,2b' } + ubsan,
         "clang-15",
-        ["deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"],
+    ),
+
+    linux_pipeline(
+        "Linux 22.04 Clang 15 ASAN",
+        "cppalliance/droneubuntu2204:1",
+        { TOOLSET: 'clang', COMPILER: 'clang++-15', CXXSTD: '03,11,14,17,20,2b' } + asan,
+        "clang-15",
     ),
 
     macos_pipeline(
         "MacOS 10.15 Xcode 12.2 UBSAN",
-        { TOOLSET: 'clang', COMPILER: 'clang++', CXXSTD: '03,11,14,1z' } + ubsan,
+        { TOOLSET: 'clang', COMPILER: 'clang++', CXXSTD: '03,11,14,17,2a' } + ubsan,
     ),
 
     macos_pipeline(
         "MacOS 10.15 Xcode 12.2 ASAN",
-        { TOOLSET: 'clang', COMPILER: 'clang++', CXXSTD: '03,11,14,1z' } + asan,
+        { TOOLSET: 'clang', COMPILER: 'clang++', CXXSTD: '03,11,14,17,2a' } + asan,
+    ),
+
+    macos_pipeline(
+        "MacOS 12.4 Xcode 13.4.1 UBSAN",
+        { TOOLSET: 'clang', COMPILER: 'clang++', CXXSTD: '03,11,14,17,20,2b' } + ubsan,
+        xcode_version = "13.4.1", osx_version = "monterey", arch = "arm64",
+    ),
+
+    macos_pipeline(
+        "MacOS 12.4 Xcode 13.4.1 ASAN",
+        { TOOLSET: 'clang', COMPILER: 'clang++', CXXSTD: '03,11,14,17,20,2b' } + asan,
+        xcode_version = "13.4.1", osx_version = "monterey", arch = "arm64",
     ),
 
     windows_pipeline(
